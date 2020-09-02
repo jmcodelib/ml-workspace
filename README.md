@@ -1,7 +1,7 @@
 # This Repository is a fork that is being maintained. Feel free to use it, create PR and requests if you have any.
 
 <h1 align="center">
-    <a href="https://github.com/ml-tooling/ml-workspace" title="ML Workspace Home">
+    <a href="https://github.com/dagshub/ml-workspace" title="ML Workspace Home">
     <img width=50% alt="" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/ml-workspace-logo.png"> </a>
     <br>
 </h1>
@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-    <a href="https://hub.docker.com/r/dagshub/ml-workspace" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/mltooling/ml-workspace.svg"></a>
+    <a href="https://hub.docker.com/r/dagshub/ml-workspace" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/dagshub/ml-workspace.svg"></a>
     <a href="https://hub.docker.com/r/dagshub/ml-workspace" title="Docker Pulls"><img src="https://img.shields.io/docker/pulls/dagshub/ml-workspace.svg"></a>
     <a href="https://hub.docker.com/r/dagshub/ml-workspace" title="Docker Image Metadata"><img src="https://images.microbadger.com/badges/image/dagshub/ml-workspace.svg"></a>
     <a href="https://github.com/dagshub/ml-workspace/blob/master/LICENSE" title="ML Workspace License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg"></a>
@@ -59,7 +59,7 @@ The workspace requires **Docker** to be installed on your machine ([📖 Install
 Deploying a single workspace instance is as simple as:
 
 ```bash
-docker run -p 8080:8080 mltooling/ml-workspace:latest
+docker run -p 8080:8080 dagshub/ml-workspace:latest
 ```
 
 Voilà, that was easy! Now, Docker will pull the latest workspace image to your machine. This may take a few minutes, depending on your internet speed. Once the workspace is started, you can access it via http://localhost:8080.
@@ -75,7 +75,7 @@ docker run -d \
     --env AUTHENTICATE_VIA_JUPYTER="mytoken" \
     --shm-size 512m \
     --restart always \
-    mltooling/ml-workspace:latest
+    dagshub/ml-workspace:latest
 ```
 
 This command runs the container in background (`-d`), mounts your current working directory into the `/workspace` folder (`-v`), secures the workspace via a provided token (`--env AUTHENTICATE_VIA_JUPYTER`), provides 512MB of shared memory (`--shm-size`) to prevent unexpected crashes (see [known issues section](#known-issues)), and keeps the container running even on system restarts (`--restart always`). You can find additional options for docker run [here](https://docs.docker.com/engine/reference/commandline/run/) and workspace configuration options in [the section below](#Configuration).
@@ -182,7 +182,7 @@ We strongly recommend enabling authentication via one of the following two optio
 Activate the token-based authentication based on the authentication implementation of Jupyter via the `AUTHENTICATE_VIA_JUPYTER` variable:
 
 ```bash
-docker run -p 8080:8080 --env AUTHENTICATE_VIA_JUPYTER="mytoken" mltooling/ml-workspace:latest
+docker run -p 8080:8080 --env AUTHENTICATE_VIA_JUPYTER="mytoken" dagshub/ml-workspace:latest
 ```
 
 You can also use `<generated>` to let Jupyter generate a random token that is printed out on the container logs. A value of `true` will not set any token but activate that every request to any tool in the workspace will be checked with the Jupyter instance if the user is authenticated. This is used for tools like JupyterHub, which configures its own way of authentication.
@@ -192,7 +192,7 @@ You can also use `<generated>` to let Jupyter generate a random token that is pr
 Activate the basic authentication via the `WORKSPACE_AUTH_USER` and `WORKSPACE_AUTH_PASSWORD` variable:
 
 ```bash
-docker run -p 8080:8080 --env WORKSPACE_AUTH_USER="user" --env WORKSPACE_AUTH_PASSWORD="pwd" mltooling/ml-workspace:latest
+docker run -p 8080:8080 --env WORKSPACE_AUTH_USER="user" --env WORKSPACE_AUTH_PASSWORD="pwd" dagshub/ml-workspace:latest
 ```
 
 The basic authentication is configured via the nginx proxy and might be more performant compared to the other option since with `AUTHENTICATE_VIA_JUPYTER` every request to any tool in the workspace will check via the Jupyter instance if the user (based on the request cookies) is authenticated.
@@ -213,7 +213,7 @@ docker run \
     -p 8080:8080 \
     --env WORKSPACE_SSL_ENABLED="true" \
     -v /path/with/certificate/files:/resources/ssl:ro \
-    mltooling/ml-workspace:latest
+    dagshub/ml-workspace:latest
 ```
 
 If you want to host the workspace on a public domain, we recommend to use [Let's encrypt](https://letsencrypt.org/getting-started/) to get a trusted certificate for your domain.  To use the generated certificate (e.g., via [certbot](https://certbot.eff.org/) tool) for the workspace, the `privkey.pem` corresponds to the `cert.key` file and the `fullchain.pem` to the `cert.crt` file.
@@ -234,7 +234,7 @@ By default, the workspace container has no resource constraints and can use as m
 For example, the following command restricts the workspace to only use a maximum of 8 CPUs, 16 GB of memory, and 1 GB of shared memory (see [Known Issues](#known-issues)):
 
 ```bash
-docker run -p 8080:8080 --cpus=8 --memory=16g --shm-size=1G mltooling/ml-workspace:latest
+docker run -p 8080:8080 --cpus=8 --memory=16g --shm-size=1G dagshub/ml-workspace:latest
 ```
 
 > 📖 _For more options and documentation on resource constraints, please refer to the [official docker guide](https://docs.docker.com/config/containers/resource_constraints/)._
@@ -247,7 +247,7 @@ If a proxy is required, you can pass the proxy configuration via the `HTTP_PROXY
 
 ### Workspace Flavors
 
-In addition to the main workspace image (`mltooling/ml-workspace`), we provide other image flavors that extend the features or minimize the image size to support a variety of use cases.
+In addition to the main workspace image (`dagshub/ml-workspace`), we provide other image flavors that extend the features or minimize the image size to support a variety of use cases.
 
 #### Minimal Flavor
 
@@ -261,13 +261,106 @@ In addition to the main workspace image (`mltooling/ml-workspace`), we provide o
 <details>
 <summary>Details (click to expand...)</summary>
 
-The minimal flavor (`mltooling/ml-workspace-minimal`) is our smallest image that contains most of the tools and features described in the [features section](#features) without most of the python libraries that are pre-installed in our main image. Any Python library or excluded tool can be installed manually during runtime by the user.
+The minimal flavor (`dagshub/ml-workspace-minimal`) is our smallest image that contains most of the tools and features described in the [features section](#features) without most of the python libraries that are pre-installed in our main image. Any Python library or excluded tool can be installed manually during runtime by the user.
 
 ```bash
-docker run -p 8080:8080 mltooling/ml-workspace-minimal:latest
+docker run -p 8080:8080 dagshub/ml-workspace-minimal:latest
 ```
 </details>
 
+#### R Flavor
+
+<p>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-r" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/dagshub/ml-workspace-r.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-r" title="Docker Image Metadata"><img src="https://images.microbadger.com/badges/image/dagshub/ml-workspace-r.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-r" title="Docker Pulls"><img src="https://img.shields.io/docker/pulls/dagshub/ml-workspace-r.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-r" title="Docker Stars"><img src="https://img.shields.io/docker/stars/dagshub/ml-workspace-r"></a>
+</p>
+
+<details>
+<summary>Details (click to expand...)</summary>
+
+The R flavor (`dagshub/ml-workspace-r`) is based on our default workspace image and extends it with the R-interpreter, R-Jupyter kernel, RStudio server (access via `Open Tool -> RStudio`), and a variety of popular packages from the R ecosystem.
+
+```bash
+docker run -p 8080:8080 dagshub/ml-workspace-r:latest
+```
+</details>
+
+#### Spark Flavor
+
+<p>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-spark" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/dagshub/ml-workspace-spark.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-spark" title="Docker Image Metadata"><img src="https://images.microbadger.com/badges/image/dagshub/ml-workspace-spark.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-spark" title="Docker Pulls"><img src="https://img.shields.io/docker/pulls/dagshub/ml-workspace-spark.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-spark" title="Docker Stars"><img src="https://img.shields.io/docker/stars/dagshub/ml-workspace-spark"></a>
+</p>
+
+<details>
+<summary>Details (click to expand...)</summary>
+
+The Spark flavor (`dagshub/ml-workspace-spark`) is based on our R-flavor workspace image and extends it with the Spark-interpreter, Spark-Jupyter kernel (Apache Toree), Zeppelin Notebook (access via `Open Tool -> Zeppelin`), and a few additional python libraries & Jupyter extensions.
+
+```bash
+docker run -p 8080:8080 dagshub/ml-workspace-spark:latest
+```
+
+</details>
+
+#### GPU Flavor
+
+<p>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-gpu" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/dagshub/ml-workspace-gpu.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-gpu" title="Docker Image Metadata"><img src="https://images.microbadger.com/badges/image/dagshub/ml-workspace-gpu.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-gpu" title="Docker Pulls"><img src="https://img.shields.io/docker/pulls/dagshub/ml-workspace-gpu.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-gpu" title="Docker Stars"><img src="https://img.shields.io/docker/stars/dagshub/ml-workspace-gpu"></a>
+</p>
+
+<details>
+<summary>Details (click to expand...)</summary>
+
+> _Currently, the GPU-flavor only supports CUDA 10.1. Support for other CUDA versions might be added in the future._
+
+The GPU flavor (`dagshub/ml-workspace-gpu`) is based on our default workspace image and extends it with CUDA 10.1 and GPU-ready versions of various machine learning libraries (e.g., tensorflow, pytorch, cntk, jax). This GPU image has the following additional requirements for the system:
+
+- Nvidia Drivers for the GPUs. Drivers need to be CUDA 10.1 compatible, version `>= 418.39` ([📖 Instructions](https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#how-do-i-install-the-nvidia-driver)).
+- (Docker >= 19.03) Nvidia Container Toolkit ([📖 Instructions](https://github.com/NVIDIA/nvidia-docker/wiki/Installation-(Native-GPU-Support))).
+
+```bash
+docker run -p 8080:8080 --gpus all dagshub/ml-workspace-gpu:latest
+```
+
+- (Docker < 19.03) Nvidia Docker 2.0 ([📖 Instructions](https://github.com/NVIDIA/nvidia-docker/wiki/Installation-(version-2.0))).
+
+```bash
+docker run -p 8080:8080 --runtime nvidia --env NVIDIA_VISIBLE_DEVICES="all" dagshub/ml-workspace-gpu:latest
+```
+
+The GPU flavor also comes with a few additional configuration options, as explained below:
+
+<table>
+    <tr>
+        <th>Variable</th>
+        <th>Description</th>
+        <th>Default</th>
+    </tr>
+    <tr>
+        <td>NVIDIA_VISIBLE_DEVICES</td>
+        <td>Controls which GPUs will be accessible inside the workspace. By default, all GPUs from the host are accessible within the workspace. You can either use <code>all</code>, <code>none</code>, or specify a comma-separated list of device IDs (e.g., <code>0,1</code>). You can find out the list of available device IDs by running <code>nvidia-smi</code> on the host machine.</td>
+        <td>all</td>
+    </tr>
+    <tr>
+        <td>CUDA_VISIBLE_DEVICES</td>
+        <td>Controls which GPUs CUDA applications running inside the workspace will see. By default, all GPUs that the workspace has access to will be visible. To restrict applications, provide a comma-separated list of internal device IDs (e.g., <code>0,2</code>) based on the available devices within the workspace (run <code>nvidia-smi</code>). In comparison to <code>NVIDIA_VISIBLE_DEVICES</code>, the workspace user will be still able to access other GPUs by overwriting this configuration from within the workspace.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>TF_FORCE_GPU_ALLOW_GROWTH</td>
+        <td>By default, the majority of GPU memory will be allocated by the first execution of a TensorFlow graph. While this behavior can be desirable for production pipelines, it is less desirable for interactive use. Use <code>true</code> to enable dynamic GPU Memory allocation or <code>false</code> to instruct TensorFlow to allocate all memory at execution.</td>
+        <td>true</td>
+    </tr>
+</table>
+</details>
 <br>
 
 ## Support
@@ -306,7 +399,7 @@ valuable if it's shared publicly so that more people can benefit from it.
 
 The workspace is equipped with a selection of best-in-class open-source development tools to help with the machine learning workflow. Many of these tools can be started from the `Open Tool` menu from Jupyter (the main application of the workspace):
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/open-tools.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/open-tools.png"/>
 
 > _Within your workspace you have **full root & sudo privileges** to install any library or tool you need via terminal (e.g., `pip`, `apt-get`, `conda`, or `npm`). You can find more ways to extend the workspace within the [Extensibility](#extensibility) section_
 
@@ -314,13 +407,13 @@ The workspace is equipped with a selection of best-in-class open-source developm
 
 [Jupyter Notebook](https://jupyter.org/) is a web-based interactive environment for writing and running code. The main building blocks of Jupyter are the file-browser, the notebook editor, and kernels. The file-browser provides an interactive file manager for all notebooks, files, and folders in the `/workspace` directory.
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/jupyter-tree.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/jupyter-tree.png"/>
 
 A new notebook can be created by clicking on the `New` drop-down button at the top of the list and selecting the desired language kernel.
 
 > _You can spawn interactive **terminal** instances as well by selecting `New -> Terminal` in the file-browser._
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/jupyter-notebook.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/jupyter-notebook.png"/>
 
 The notebook editor enables users to author documents that include live code, markdown text, shell commands, LaTeX equations, interactive widgets, plots, and images. These notebook documents provide a complete and self-contained record of a computation that can be converted to various formats and shared with others.
 
@@ -334,13 +427,13 @@ The Notebook allows code to be run in a range of different programming languages
 
 This workspace provides an HTTP-based VNC access to the workspace via [noVNC](https://github.com/novnc/noVNC). Thereby, you can access and work within the workspace with a fully-featured desktop GUI. To access this desktop GUI, go to `Open Tool`, select `VNC`, and click the `Connect` button. In the case you are asked for a password, use `vncpassword`.
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/desktop-vnc.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/desktop-vnc.png"/>
 
 Once you are connected, you will see a desktop GUI that allows you to install and use full-fledged web-browsers or any other tool that is available for Ubuntu. Within the `Tools` folder on the desktop, you will find a collection of install scripts that makes it straightforward to install some of the most commonly used development tools, such as Atom, PyCharm, R-Runtime, R-Studio, or Postman (just double-click on the script).
 
 **Clipboard:** If you want to share the clipboard between your machine and the workspace, you can use the copy-paste functionality as described below:
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/desktop-vnc-clipboard.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/desktop-vnc-clipboard.png"/>
 
 > 💡 _**Long-running tasks:** Use the desktop GUI for long-running Jupyter executions. By running notebooks from the browser of your workspace desktop GUI, all output will be synchronized to the notebook even if you have disconnected your browser from the notebook._
 
@@ -348,17 +441,17 @@ Once you are connected, you will see a desktop GUI that allows you to install an
 
 [Visual Studio Code](https://github.com/microsoft/vscode) (`Open Tool -> VS Code`) is an open-source lightweight but powerful code editor with built-in support for a variety of languages and a rich ecosystem of extensions. It combines the simplicity of a source code editor with powerful developer tooling, like IntelliSense code completion and debugging. The workspace integrates VS Code as a web-based application accessible through the browser-based on the awesome [code-server](https://github.com/cdr/code-server) project. It allows you to customize every feature to your liking and install any number of third-party extensions.
 
-<p align="center"><img src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/vs-code.png"/></p>
+<p align="center"><img src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/vs-code.png"/></p>
 
 The workspace also provides a VS Code integration into Jupyter allowing you to open a VS Code instance for any selected folder, as shown below:
 
-<p align="center"><img src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/vs-code-open.png"/></p>
+<p align="center"><img src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/vs-code-open.png"/></p>
 
 ### JupyterLab
 
 [JupyterLab](https://github.com/jupyterlab/jupyterlab) (`Open Tool -> JupyterLab`) is the next-generation user interface for Project Jupyter. It offers all the familiar building blocks of the classic Jupyter Notebook (notebook, terminal, text editor, file browser, rich outputs, etc.) in a flexible and powerful user interface. This JupyterLab instance comes pre-installed with a few helpful extensions such as a the [jupyterlab-toc](https://github.com/jupyterlab/jupyterlab-toc), [jupyterlab-git](https://github.com/jupyterlab/jupyterlab-git), and [juptyterlab-tensorboard](https://github.com/chaoleili/jupyterlab_tensorboard).
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/jupyterlab.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/jupyterlab.png"/>
 
 ### Git Integration
 
@@ -368,17 +461,17 @@ Version control is a crucial aspect of productive collaboration. To make this pr
 
 For cloning repositories via `https`, we recommend to navigate to the desired root folder and to click on the `git` button as shown below:
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/git-open.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/git-open.png"/>
 
 This might ask for some required settings and, subsequently, opens [ungit](https://github.com/FredrikNoren/ungit), a web-based Git client with a clean and intuitive UI that makes it convenient to sync your code artifacts. Within ungit, you can clone any repository. If authentication is required, you will get asked for your credentials.
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/git-ungit-credentials.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/git-ungit-credentials.png"/>
 
 #### Push, Pull, Merge, and Other Git Actions
 
 To commit and push a single notebook to a remote Git repository, we recommend to use the Git plugin integrated into Jupyter, as shown below:
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/git-push-notebook.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/git-push-notebook.png"/>
 
 For more advanced Git operations, we recommend to use [ungit](https://github.com/FredrikNoren/ungit). With ungit, you can do most of the common git actions such as push, pull, merge, branch, tag, checkout, and many more.
 
@@ -386,11 +479,11 @@ For more advanced Git operations, we recommend to use [ungit](https://github.com
 
 Jupyter notebooks are great, but they often are huge files, with a very specific JSON file format. To enable seamless diffing and merging via Git this workspace is pre-installed with [nbdime](https://github.com/jupyter/nbdime). Nbdime understands the structure of notebook documents and, therefore, automatically makes intelligent decisions when diffing and merging notebooks. In the case you have merge conflicts, nbdime will make sure that the notebook is still readable by Jupyter, as shown below:
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/git-nbdime-merging.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/git-nbdime-merging.png"/>
 
 Furthermore, the workspace comes pre-installed with [jupytext](https://github.com/mwouts/jupytext), a Jupyter plugin that reads and writes notebooks as plain text files. This allows you to open, edit, and run scripts or markdown files (e.g., `.py`, `.md`) as notebooks within Jupyter. In the following screenshot, we have opened a markdown file via Jupyter:
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/git-jupytext.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/git-jupytext.png"/>
 
 In combination with Git, jupytext enables a clear diff history and easy merging of version conflicts. With both of those tools, collaborating on Jupyter notebooks with Git becomes straightforward.
 
@@ -398,11 +491,11 @@ In combination with Git, jupytext enables a clear diff history and easy merging 
 
 The workspace has a feature to share any file or folder with anyone via a token-protected link. To share data via a link, select any file or folder from the Jupyter directory tree and click on the share button as shown in the following screenshot:
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/file-sharing-open.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/file-sharing-open.png"/>
 
 This will generate a unique link protected via a token that gives anyone with the link access to view and download the selected data via the [Filebrowser](https://github.com/filebrowser/filebrowser) UI:
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/file-sharing-filebrowser.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/file-sharing-filebrowser.png"/>
 
 To deactivate or manage (e.g., provide edit permissions) shared links, open the Filebrowser via `Open Tool -> Filebrowser` and select `Settings->User Management`.
 
@@ -410,7 +503,7 @@ To deactivate or manage (e.g., provide edit permissions) shared links, open the 
 
 It is possible to securely access any workspace internal port by selecting `Open Tool -> Access Port`. With this feature, you are able to access a REST API or web application running inside the workspace directly with your browser. The feature enables developers  to build, run, test, and debug REST APIs or web applications directly from the workspace.
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/access-port.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/access-port.png"/>
 
 If you want to use an HTTP client or share access to a given port, you can select the `Get shareable link` option. This generates a token-secured link that anyone with access to the link can use to access the specified port.
 
@@ -431,7 +524,7 @@ If you want to use an HTTP client or share access to a given port, you can selec
 
 SSH provides a powerful set of features that enables you to be more productive with your development tasks. You can easily set up a secure and passwordless SSH connection to a workspace by selecting `Open Tool -> SSH`. This will generate a secure setup command that can be run on any Linux or Mac machine to configure a passwordless & secure SSH connection to the workspace. Alternatively, you can also download the setup script and run it (instead of using the command).
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/ssh-access.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/ssh-access.png"/>
 
 > _The setup script only runs on Mac and Linux. Windows is currently not supported._
 
@@ -465,7 +558,7 @@ Port tunneling is quite useful when you have started any server-based tool withi
 - `3389`: RDP server.
 - `22`: SSH server.
 
-You can find port information on all the tools in the [supervisor configuration](https://github.com/ml-tooling/ml-workspace/blob/master/resources/config/supervisord.conf).
+You can find port information on all the tools in the [supervisor configuration](https://github.com/dagshub/ml-workspace/blob/master/resources/config/supervisord.conf).
 
 > 📖 _For more information about port tunneling/forwarding, we recommend [this guide](https://www.everythingcli.org/ssh-tunnelling-for-fun-and-profit-local-vs-remote/)._
 
@@ -550,7 +643,7 @@ remote_ikernel manage --add \
 
 You can use the remote_ikernel command line functionality to list (`remote_ikernel manage --show`) or delete (`remote_ikernel manage --delete <REMOTE_KERNEL_NAME>`) remote kernel connections.
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/remote-dev-jupyter-kernel.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/remote-dev-jupyter-kernel.png"/>
 
 </details>
 
@@ -563,7 +656,7 @@ The Visual Studio Code [Remote - SSH](https://marketplace.visualstudio.com/item
 2. Run the SSH setup script of a selected workspace as explained in the [SSH Access](#ssh-access) section.
 3. Open the Remote-SSH panel in your local VS Code. All configured SSH connections should be automatically discovered. Just select any configured workspace connection you like to connect to as shown below:
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/remote-dev-vscode.gif"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/remote-dev-vscode.gif"/>
 
 > 📖 _You can find additional features and information about the Remote SSH extension in [this guide](https://code.visualstudio.com/docs/remote/ssh)._
 
@@ -573,11 +666,11 @@ The Visual Studio Code [Remote - SSH](https://marketplace.visualstudio.com/item
 
 [Tensorboard](https://www.tensorflow.org/tensorboard) provides a suite of visualization tools to make it easier to understand, debug, and optimize your experiment runs. It includes logging features for scalar, histogram, model structure, embeddings, and text & image visualization. The workspace comes pre-installed with [jupyter_tensorboard extension](https://github.com/lspvic/jupyter_tensorboard) that integrates Tensorboard into the Jupyter interface with functionalities to start, manage, and stop instances. You can open a new instance for a valid logs directory, as shown below:
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/tensorboard-open.png" />
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/tensorboard-open.png" />
 
 If you have opened a Tensorboard instance in a valid log directory, you will see the visualizations of your logged data:
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/tensorboard-dashboard.png" />
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/tensorboard-dashboard.png" />
 
 > _Tensorboard can be used in combination with many other ML frameworks besides Tensorflow. By using the [tensorboardX](https://github.com/lanpa/tensorboardX) library you can log basically from any python based library. Also, PyTorch has a direct Tensorboard integration as described [here](https://pytorch.org/docs/stable/tensorboard.html)._
 
@@ -594,11 +687,11 @@ The workspace provides two pre-installed web-based tools to help developers duri
 
 [Netdata](https://github.com/netdata/netdata) (`Open Tool -> Netdata`) is a real-time hardware and performance monitoring dashboard that visualize the processes and services on your Linux systems. It monitors metrics about CPU, GPU, memory, disks, networks, processes, and more.
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/hardware-monitoring-netdata.png" />
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/hardware-monitoring-netdata.png" />
 
 [Glances](https://github.com/nicolargo/glances) (`Open Tool -> Glances`) is a web-based hardware monitoring dashboard as well and can be used as an alternative to Netdata.
 
-<img style="width: 100%" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/features/hardware-monitoring-glances.png"/>
+<img style="width: 100%" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/features/hardware-monitoring-glances.png"/>
 
 > _Netdata and Glances will show you the hardware statistics for the entire machine on which the workspace container is running._
 
@@ -615,10 +708,10 @@ To run Python code as a job, you need to provide a path or URL to a code directo
 
 #### Run code from version control system
 
-You can execute code directly from Git, Mercurial, Subversion, or Bazaar by using the pip-vcs format as described in [this guide](https://pip.pypa.io/en/stable/reference/pip_install/#vcs-support). For example, to execute code from a [subdirectory](https://github.com/ml-tooling/ml-workspace/tree/master/resources/tests/ml-job) of a git repository, just run:
+You can execute code directly from Git, Mercurial, Subversion, or Bazaar by using the pip-vcs format as described in [this guide](https://pip.pypa.io/en/stable/reference/pip_install/#vcs-support). For example, to execute code from a [subdirectory](https://github.com/dagshub/ml-workspace/tree/master/resources/tests/ml-job) of a git repository, just run:
 
 ```bash
-docker run --env EXECUTE_CODE="git+https://github.com/ml-tooling/ml-workspace.git#subdirectory=resources/tests/ml-job" mltooling/ml-workspace:latest
+docker run --env EXECUTE_CODE="git+https://github.com/dagshub/ml-workspace.git#subdirectory=resources/tests/ml-job" dagshub/ml-workspace:latest
 ```
 
 > 📖 _For additional information on how to specify branches, commits, or tags please refer to [this guide](https://pip.pypa.io/en/stable/reference/pip_install/#vcs-support)._
@@ -628,7 +721,7 @@ docker run --env EXECUTE_CODE="git+https://github.com/ml-tooling/ml-workspace.gi
 In the following example, we mount and execute the current working directory (expected to contain our code) into the `/workspace/ml-job/` directory of the workspace:
 
 ```bash
-docker run -v "${PWD}:/workspace/ml-job/" --env EXECUTE_CODE="/workspace/ml-job/" mltooling/ml-workspace:latest
+docker run -v "${PWD}:/workspace/ml-job/" --env EXECUTE_CODE="/workspace/ml-job/" dagshub/ml-workspace:latest
 ```
 
 #### Install Dependencies
@@ -654,7 +747,7 @@ python /resources/scripts/execute_code.py /path/to/your/job
 It is also possible to embed your code directly into a custom job image, as shown below:
 
 ```dockerfile
-FROM mltooling/ml-workspace:latest
+FROM dagshub/ml-workspace:latest
 
 # Add job code to image
 COPY ml-job /workspace/ml-job
@@ -674,10 +767,10 @@ CMD ["python", "/resources/docker-entrypoint.py", "--code-only"]
 The workspace is pre-installed with many popular interpreters, data science libraries, and ubuntu packages:
 
 - **Interpreter:** Python 3.7 (Miniconda 3), Java 11 (OpenJDK), NodeJS 13, Scala, Perl 5
-- **Python libraries:** Tensorflow, Keras, Pytorch, Sklearn, XGBoost, MXNet, Theano, and [many more](https://github.com/ml-tooling/ml-workspace/tree/master/resources/libraries)
+- **Python libraries:** Tensorflow, Keras, Pytorch, Sklearn, XGBoost, MXNet, Theano, and [many more](https://github.com/dagshub/ml-workspace/tree/master/resources/libraries)
 - **Package Manager:** `conda`, `pip`, `npm`, `apt-get`, `yarn`, `sdk`, `gdebi`, `mvn` ...  
 
-The full list of installed tools can be found within the [Dockerfile](https://github.com/ml-tooling/ml-workspace/blob/master/Dockerfile).
+The full list of installed tools can be found within the [Dockerfile](https://github.com/dagshub/ml-workspace/blob/master/Dockerfile).
 
 > _For every minor version release, we run vulnerability, virus, and security checks within the workspace using [vuls](https://vuls.io/), [safety](https://pyup.io/safety/), and [clamav](https://www.clamav.net/) to make sure that the workspace environment is as secure as possible._
 
@@ -690,7 +783,7 @@ The workspace provides a high degree of extensibility. Within the workspace, you
 - **JupyterLab:** `File -> New -> Terminal`
 - **VS Code:** `Terminal -> New Terminal`
 
-Additionally, pre-installed tools such as Jupyter, JupyterLab, and Visual Studio Code each provide their own rich ecosystem of extensions. The workspace also contains a [collection of installer scripts](https://github.com/ml-tooling/ml-workspace/tree/master/resources/tools) for many commonly used development tools or libraries (e.g., `PyCharm`, `Zeppelin`, `RStudio`, `Starspace`). You can find and execute all tool installers via `Open Tool -> Install Tool`. Those scripts can be also executed from the Desktop VNC (double-click on the script within the `Tools` folder on the Desktop VNC).
+Additionally, pre-installed tools such as Jupyter, JupyterLab, and Visual Studio Code each provide their own rich ecosystem of extensions. The workspace also contains a [collection of installer scripts](https://github.com/dagshub/ml-workspace/tree/master/resources/tools) for many commonly used development tools or libraries (e.g., `PyCharm`, `Zeppelin`, `RStudio`, `Starspace`). You can find and execute all tool installers via `Open Tool -> Install Tool`. Those scripts can be also executed from the Desktop VNC (double-click on the script within the `Tools` folder on the Desktop VNC).
 
 <details>
 <summary>Example (click to expand...)</summary>
@@ -720,7 +813,7 @@ The workspace can be extended in many ways at runtime, as explained [here](#exte
 ```dockerfile
 # Extend from any of the workspace versions/flavors
 # Using latest as version is not recommended, please specify a specific version
-FROM mltooling/ml-workspace:latest
+FROM dagshub/ml-workspace:latest
 
 # Run you customizations, e.g.
 RUN \
@@ -733,7 +826,7 @@ RUN \
 
 Finally, use [docker build](https://docs.docker.com/engine/reference/commandline/build/) to build your customized Docker image.
 
-> 📖 _For a more comprehensive Dockerfile example, take a look at the [Dockerfile of the R-flavor](https://github.com/ml-tooling/ml-workspace/blob/master/r-flavor/Dockerfile)._
+> 📖 _For a more comprehensive Dockerfile example, take a look at the [Dockerfile of the R-flavor](https://github.com/dagshub/ml-workspace/blob/master/r-flavor/Dockerfile)._
 
 </details>
 
@@ -748,10 +841,10 @@ All data within the workspace that is not persisted to a mounted volume will be 
 
 <summary>Update Example (click to expand...)</summary>
 
-If the workspace is deployed via Docker (Kubernetes will have a different update process), you need to remove the existing container (via `docker rm`) and start a new one (via `docker run`) with the newer workspace image. Make sure to use the same configuration, volume, name, and port. For example, a workspace (image version `0.8.3`) was started with this command: `docker run -d -p 8080:8080 --name "ml-workspace" -v "/path/on/host:/workspace" --env AUTHENTICATE_VIA_JUPYTER="mytoken" --restart always mltooling/ml-workspace:0.8.3`) and needs to be updated to version `0.8.4`, you need to:
+If the workspace is deployed via Docker (Kubernetes will have a different update process), you need to remove the existing container (via `docker rm`) and start a new one (via `docker run`) with the newer workspace image. Make sure to use the same configuration, volume, name, and port. For example, a workspace (image version `0.8.3`) was started with this command: `docker run -d -p 8080:8080 --name "ml-workspace" -v "/path/on/host:/workspace" --env AUTHENTICATE_VIA_JUPYTER="mytoken" --restart always dagshub/ml-workspace:0.8.3`) and needs to be updated to version `0.8.4`, you need to:
 
 1. Stop and remove the running workspace container: `docker stop "ml-workspace" && docker rm "ml-workspace"`
-2. Start a new workspace container with the newer image and same configuration: `docker run -d -p 8080:8080 --name "ml-workspace" -v "/path/on/host:/workspace" --env AUTHENTICATE_VIA_JUPYTER="mytoken" --restart always mltooling/ml-workspace:latest`
+2. Start a new workspace container with the newer image and same configuration: `docker run -d -p 8080:8080 --name "ml-workspace" -v "/path/on/host:/workspace" --env AUTHENTICATE_VIA_JUPYTER="mytoken" --restart always dagshub/ml-workspace:latest`
 
 </details>
 
@@ -809,7 +902,7 @@ Using root-user (or users with sudo permission) within containers is generally n
 Certain desktop tools (e.g., recent versions of [Firefox](https://github.com/jlesage/docker-firefox#increasing-shared-memory-size)) or libraries (e.g., Pytorch - see Issues: [1](https://github.com/pytorch/pytorch/issues/2244), [2](https://github.com/pytorch/pytorch/issues/1355)) might crash if the shared memory size (`/dev/shm`) is too small. The default shared memory size of Docker is 64MB, which might not be enough for a few tools. You can provide a higher shared memory size via the `shm-size` docker run option:
 
 ```bash
-docker run --shm-size=2G mltooling/ml-workspace:latest
+docker run --shm-size=2G dagshub/ml-workspace:latest
 ```
 
 </details>
@@ -819,7 +912,7 @@ docker run --shm-size=2G mltooling/ml-workspace:latest
 <br>
 
 ## Contributors
-
+### Original ML-workspace Contributors
 [![](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/images/0)](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/links/0)[![](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/images/1)](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/links/1)[![](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/images/2)](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/links/2)[![](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/images/3)](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/links/3)[![](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/images/4)](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/links/4)[![](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/images/5)](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/links/5)[![](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/images/6)](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/links/6)[![](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/images/7)](https://sourcerer.io/fame/LukasMasuch/ml-tooling/ml-workspace/links/7)
 
 ---
@@ -828,9 +921,9 @@ docker run --shm-size=2G mltooling/ml-workspace:latest
 
 ## Contribution
 
-- Pull requests are encouraged and always welcome. Read [`CONTRIBUTING.md`](https://github.com/ml-tooling/ml-workspace/tree/master/CONTRIBUTING.md) and check out [help-wanted](https://github.com/ml-tooling/ml-workspace/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3A"help+wanted"+sort%3Areactions-%2B1-desc+) issues.
-- Submit Github issues for any [feature enhancements](https://github.com/ml-tooling/ml-workspace/issues/new?assignees=&labels=feature-request&template=02_feature-request.md&title=), [bugs](https://github.com/ml-tooling/ml-workspace/issues/new?assignees=&labels=bug&template=01_bug-report.md&title=), or [documentation](https://github.com/ml-tooling/ml-workspace/issues/new?assignees=&labels=enhancement%2C+docs&template=03_documentation.md&title=) problems. 
-- By participating in this project, you agree to abide by its [Code of Conduct](https://github.com/ml-tooling/ml-workspace/tree/master/CODE_OF_CONDUCT.md).
+- Pull requests are encouraged and always welcome. Read [`CONTRIBUTING.md`](https://github.com/dagshub/ml-workspace/tree/master/CONTRIBUTING.md) and check out [help-wanted](https://github.com/dagshub/ml-workspace/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3A"help+wanted"+sort%3Areactions-%2B1-desc+) issues.
+- Submit Github issues for any [feature enhancements](https://github.com/dagshub/ml-workspace/issues/new?assignees=&labels=feature-request&template=02_feature-request.md&title=), [bugs](https://github.com/dagshub/ml-workspace/issues/new?assignees=&labels=bug&template=01_bug-report.md&title=), or [documentation](https://github.com/dagshub/ml-workspace/issues/new?assignees=&labels=enhancement%2C+docs&template=03_documentation.md&title=) problems. 
+- By participating in this project, you agree to abide by its [Code of Conduct](https://github.com/dagshub/ml-workspace/tree/master/CODE_OF_CONDUCT.md).
 
 <details>
 
