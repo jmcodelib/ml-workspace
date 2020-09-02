@@ -1,6 +1,8 @@
+# This Repository is a fork that is being maintained. Feel free to use it, create PR and requests if you have any.
+
 <h1 align="center">
     <a href="https://github.com/ml-tooling/ml-workspace" title="ML Workspace Home">
-    <img width=50% alt="" src="https://github.com/ml-tooling/ml-workspace/raw/master/docs/images/ml-workspace-logo.png"> </a>
+    <img width=50% alt="" src="https://github.com/dagshub/ml-workspace/raw/master/docs/images/ml-workspace-logo.png"> </a>
     <br>
 </h1>
 
@@ -9,19 +11,19 @@
 </p>
 
 <p align="center">
-    <a href="https://hub.docker.com/r/mltooling/ml-workspace" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/mltooling/ml-workspace.svg"></a>
-    <a href="https://hub.docker.com/r/mltooling/ml-workspace" title="Docker Pulls"><img src="https://img.shields.io/docker/pulls/mltooling/ml-workspace.svg"></a>
-    <a href="https://hub.docker.com/r/mltooling/ml-workspace" title="Docker Image Metadata"><img src="https://images.microbadger.com/badges/image/mltooling/ml-workspace.svg"></a>
-    <a href="https://github.com/ml-tooling/ml-workspace/blob/master/LICENSE" title="ML Workspace License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg"></a>
+    <a href="https://hub.docker.com/r/dagshub/ml-workspace" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/mltooling/ml-workspace.svg"></a>
+    <a href="https://hub.docker.com/r/dagshub/ml-workspace" title="Docker Pulls"><img src="https://img.shields.io/docker/pulls/dagshub/ml-workspace.svg"></a>
+    <a href="https://hub.docker.com/r/dagshub/ml-workspace" title="Docker Image Metadata"><img src="https://images.microbadger.com/badges/image/dagshub/ml-workspace.svg"></a>
+    <a href="https://github.com/dagshub/ml-workspace/blob/master/LICENSE" title="ML Workspace License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg"></a>
     <a href="https://gitter.im/ml-tooling/ml-workspace" title="Chat on Gitter"><img src="https://badges.gitter.im/ml-tooling/ml-workspace.svg"></a>
-    <a href="https://twitter.com/mltooling" title="ML Tooling on Twitter"><img src="https://img.shields.io/twitter/follow/mltooling.svg?style=social"></a>
+    <a href="https://twitter.com/TheRealDAGsHub" title="DAGsHub on Twitter"><img src="https://img.shields.io/twitter/follow/TheRealDAGsHub.svg?style=social"></a>
 </p>
 
 <p align="center">
   <a href="#getting-started">Getting Started</a> •
   <a href="#features">Features & Screenshots</a> •
   <a href="#support">Support</a> •
-  <a href="https://github.com/ml-tooling/ml-workspace/issues/new?labels=bug&template=01_bug-report.md">Report a Bug</a> •
+  <a href="https://github.com/dagshub/ml-workspace/issues/new?labels=bug&template=01_bug-report.md">Report a Bug</a> •
   <a href="#faq">FAQ</a> •
   <a href="#known-issues">Known Issues</a> •
   <a href="#contribution">Contribution</a>
@@ -45,7 +47,7 @@ The ML workspace is an all-in-one web-based IDE specialized for machine learning
 ## Getting Started
 
 <p>
-<a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/ml-tooling/ml-workspace/master/deployment/play-with-docker/docker-compose.yml" title="Docker Image Metadata" target="_blank"><img src="https://cdn.rawgit.com/play-with-docker/stacks/cff22438/assets/images/button.png" alt="Try in PWD" width="100px"></a>
+<a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/dagshub/ml-workspace/master/deployment/play-with-docker/docker-compose.yml" title="Docker Image Metadata" target="_blank"><img src="https://cdn.rawgit.com/play-with-docker/stacks/cff22438/assets/images/button.png" alt="Try in PWD" width="100px"></a>
 </p>
 
 ### Prerequisites
@@ -250,10 +252,10 @@ In addition to the main workspace image (`mltooling/ml-workspace`), we provide o
 #### Minimal Flavor
 
 <p>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-minimal" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/mltooling/ml-workspace-minimal.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-minimal" title="Docker Image Metadata"><img src="https://images.microbadger.com/badges/image/mltooling/ml-workspace-minimal.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-minimal" title="Docker Pulls"><img src="https://img.shields.io/docker/pulls/mltooling/ml-workspace-minimal.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-minimal" title="Docker Stars"><img src="https://img.shields.io/docker/stars/mltooling/ml-workspace-minimal"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-minimal" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/dagshub/ml-workspace-minimal.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-minimal" title="Docker Image Metadata"><img src="https://images.microbadger.com/badges/image/dagshub/ml-workspace-minimal.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-minimal" title="Docker Pulls"><img src="https://img.shields.io/docker/pulls/dagshub/ml-workspace-minimal.svg"></a>
+<a href="https://hub.docker.com/r/dagshub/ml-workspace-minimal" title="Docker Stars"><img src="https://img.shields.io/docker/stars/dagshub/ml-workspace-minimal"></a>
 </p>
 
 <details>
@@ -266,134 +268,19 @@ docker run -p 8080:8080 mltooling/ml-workspace-minimal:latest
 ```
 </details>
 
-#### R Flavor
-
-<p>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-r" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/mltooling/ml-workspace-r.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-r" title="Docker Image Metadata"><img src="https://images.microbadger.com/badges/image/mltooling/ml-workspace-r.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-r" title="Docker Pulls"><img src="https://img.shields.io/docker/pulls/mltooling/ml-workspace-r.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-r" title="Docker Stars"><img src="https://img.shields.io/docker/stars/mltooling/ml-workspace-r"></a>
-</p>
-
-<details>
-<summary>Details (click to expand...)</summary>
-
-The R flavor (`mltooling/ml-workspace-r`) is based on our default workspace image and extends it with the R-interpreter, R-Jupyter kernel, RStudio server (access via `Open Tool -> RStudio`), and a variety of popular packages from the R ecosystem.
-
-```bash
-docker run -p 8080:8080 mltooling/ml-workspace-r:latest
-```
-</details>
-
-#### Spark Flavor
-
-<p>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-spark" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/mltooling/ml-workspace-spark.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-spark" title="Docker Image Metadata"><img src="https://images.microbadger.com/badges/image/mltooling/ml-workspace-spark.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-spark" title="Docker Pulls"><img src="https://img.shields.io/docker/pulls/mltooling/ml-workspace-spark.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-spark" title="Docker Stars"><img src="https://img.shields.io/docker/stars/mltooling/ml-workspace-spark"></a>
-</p>
-
-<details>
-<summary>Details (click to expand...)</summary>
-
-The Spark flavor (`mltooling/ml-workspace-spark`) is based on our R-flavor workspace image and extends it with the Spark-interpreter, Spark-Jupyter kernel (Apache Toree), Zeppelin Notebook (access via `Open Tool -> Zeppelin`), and a few additional python libraries & Jupyter extensions.
-
-```bash
-docker run -p 8080:8080 mltooling/ml-workspace-spark:latest
-```
-
-</details>
-
-#### GPU Flavor
-
-<p>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-gpu" title="Docker Image Version"><img src="https://images.microbadger.com/badges/version/mltooling/ml-workspace-gpu.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-gpu" title="Docker Image Metadata"><img src="https://images.microbadger.com/badges/image/mltooling/ml-workspace-gpu.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-gpu" title="Docker Pulls"><img src="https://img.shields.io/docker/pulls/mltooling/ml-workspace-gpu.svg"></a>
-<a href="https://hub.docker.com/r/mltooling/ml-workspace-gpu" title="Docker Stars"><img src="https://img.shields.io/docker/stars/mltooling/ml-workspace-gpu"></a>
-</p>
-
-<details>
-<summary>Details (click to expand...)</summary>
-
-> _Currently, the GPU-flavor only supports CUDA 10.1. Support for other CUDA versions might be added in the future._
-
-The GPU flavor (`mltooling/ml-workspace-gpu`) is based on our default workspace image and extends it with CUDA 10.1 and GPU-ready versions of various machine learning libraries (e.g., tensorflow, pytorch, cntk, jax). This GPU image has the following additional requirements for the system:
-
-- Nvidia Drivers for the GPUs. Drivers need to be CUDA 10.1 compatible, version `>= 418.39` ([📖 Instructions](https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#how-do-i-install-the-nvidia-driver)).
-- (Docker >= 19.03) Nvidia Container Toolkit ([📖 Instructions](https://github.com/NVIDIA/nvidia-docker/wiki/Installation-(Native-GPU-Support))).
-
-```bash
-docker run -p 8080:8080 --gpus all mltooling/ml-workspace-gpu:latest
-```
-
-- (Docker < 19.03) Nvidia Docker 2.0 ([📖 Instructions](https://github.com/NVIDIA/nvidia-docker/wiki/Installation-(version-2.0))).
-
-```bash
-docker run -p 8080:8080 --runtime nvidia --env NVIDIA_VISIBLE_DEVICES="all" mltooling/ml-workspace-gpu:latest
-```
-
-The GPU flavor also comes with a few additional configuration options, as explained below:
-
-<table>
-    <tr>
-        <th>Variable</th>
-        <th>Description</th>
-        <th>Default</th>
-    </tr>
-    <tr>
-        <td>NVIDIA_VISIBLE_DEVICES</td>
-        <td>Controls which GPUs will be accessible inside the workspace. By default, all GPUs from the host are accessible within the workspace. You can either use <code>all</code>, <code>none</code>, or specify a comma-separated list of device IDs (e.g., <code>0,1</code>). You can find out the list of available device IDs by running <code>nvidia-smi</code> on the host machine.</td>
-        <td>all</td>
-    </tr>
-    <tr>
-        <td>CUDA_VISIBLE_DEVICES</td>
-        <td>Controls which GPUs CUDA applications running inside the workspace will see. By default, all GPUs that the workspace has access to will be visible. To restrict applications, provide a comma-separated list of internal device IDs (e.g., <code>0,2</code>) based on the available devices within the workspace (run <code>nvidia-smi</code>). In comparison to <code>NVIDIA_VISIBLE_DEVICES</code>, the workspace user will be still able to access other GPUs by overwriting this configuration from within the workspace.</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>TF_FORCE_GPU_ALLOW_GROWTH</td>
-        <td>By default, the majority of GPU memory will be allocated by the first execution of a TensorFlow graph. While this behavior can be desirable for production pipelines, it is less desirable for interactive use. Use <code>true</code> to enable dynamic GPU Memory allocation or <code>false</code> to instruct TensorFlow to allocate all memory at execution.</td>
-        <td>true</td>
-    </tr>
-</table>
-</details>
-
-### Multi-user setup
-
-The workspace is designed as a single-user development environment. For a multi-user setup, we recommend deploying [🧰 ML Hub](https://github.com/ml-tooling/ml-hub). ML Hub is based on JupyterHub with the task to spawn, manage, and proxy workspace instances for multiple users.
-
-<details>
-<summary>Deployment (click to expand...)</summary>
-
-ML Hub makes it easy to set up a multi-user environment on a single server (via Docker) or a cluster (via Kubernetes) and supports a variety of usage scenarios & authentication providers. You can try out ML Hub via:
-
-```bash
-docker run -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock mltooling/ml-hub:latest
-```
-
-For more information and documentation about ML Hub, please take a look at the [Github Site](https://github.com/ml-tooling/ml-hub).
-
-</details>
-
----
-
 <br>
 
 ## Support
-
-The ML Workspace project is maintained by [Lukas Masuch](https://twitter.com/LukasMasuch)
-and [Benjamin Räthlein](https://twitter.com/raethlein). Please understand that we won't be able
-to provide individual support via email. We also believe that help is much more
+This project seems to be no longer maintained by its original creators. It is now maintained here by DAGsHub.
+Please understand that we won't be able to provide individual support via email. We also believe that help is much more
 valuable if it's shared publicly so that more people can benefit from it.
 
 | Type                     | Channel                                              |
 | ------------------------ | ------------------------------------------------------ |
-| 🚨 **Bug Reports**       | <a href="https://github.com/ml-tooling/ml-workspace/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3Abug+sort%3Areactions-%2B1-desc+" title="Open Bug Report"><img src="https://img.shields.io/github/issues/ml-tooling/ml-workspace/bug.svg"></a>                                 |
-| 🎁 **Feature Requests**  | <a href="https://github.com/ml-tooling/ml-workspace/issues?q=is%3Aopen+is%3Aissue+label%3Afeature-request+sort%3Areactions-%2B1-desc" title="Open Feature Request"><img src="https://img.shields.io/github/issues/ml-tooling/ml-workspace/feature-request.svg?label=feature%20requests"></a>                                 |
+| 🚨 **Bug Reports**       | <a href="https://github.com/dagshub/ml-workspace/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3Abug+sort%3Areactions-%2B1-desc+" title="Open Bug Report"><img src="https://img.shields.io/github/issues/dagshub/ml-workspace/bug.svg"></a>                                 |
+| 🎁 **Feature Requests**  | <a href="https://github.com/dagshub/ml-workspace/issues?q=is%3Aopen+is%3Aissue+label%3Afeature-request+sort%3Areactions-%2B1-desc" title="Open Feature Request"><img src="https://img.shields.io/github/issues/dagshub/ml-workspace/feature-request.svg?label=feature%20requests"></a>                                 |
 | 👩‍💻 **Usage Questions**   |  <a href="https://stackoverflow.com/questions/tagged/ml-tooling" title="Open Question on Stackoverflow"><img src="https://img.shields.io/badge/stackoverflow-ml--tooling-orange.svg"></a> <a href="https://gitter.im/ml-tooling/ml-workspace" title="Chat on Gitter"><img src="https://badges.gitter.im/ml-tooling/ml-workspace.svg"></a> |
-| 🗯 **General Discussion** | <a href="https://gitter.im/ml-tooling/ml-workspace" title="Chat on Gitter"><img src="https://badges.gitter.im/ml-tooling/ml-workspace.svg"></a>  <a href="https://twitter.com/mltooling" title="ML Tooling on Twitter"><img src="https://img.shields.io/twitter/follow/mltooling.svg?style=social"></a>                  |
+| 🗯 **General Discussion** | <a href="https://gitter.im/ml-tooling/ml-workspace" title="Chat on Gitter"><img src="https://badges.gitter.im/ml-tooling/ml-workspace.svg"></a>  <a href="https://twitter.com/TheRealDAGsHub" title="DAGsHub on Twitter"><img src="https://img.shields.io/twitter/follow/TheRealDAGsHub.svg?style=social"></a>                  |
 
 ---
 
