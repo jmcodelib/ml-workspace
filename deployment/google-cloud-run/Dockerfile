@@ -1,4 +1,4 @@
-FROM dagshub/ml-workspace-minimal:latest
+FROM jmcodelib/ml-workspace-minimal:latest
 
 # Set port to 8080 -> main port for cloud run
 ENV WORKSPACE_PORT=8080

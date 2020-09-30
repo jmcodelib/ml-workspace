@@ -1,6 +1,6 @@
 ARG ARG_WORKSPACE_VERSION="latest"
 # Build from full flavor of workspace with same version
-FROM dagshub/ml-workspace:$ARG_WORKSPACE_VERSION
+FROM jmcodelib/ml-workspace:$ARG_WORKSPACE_VERSION
 
 ARG ARG_WORKSPACE_FLAVOR="r"
 ENV WORKSPACE_FLAVOR=$ARG_WORKSPACE_FLAVOR
@@ -36,7 +36,7 @@ ARG ARG_VCS_REF="unknown"
 LABEL \
     "workspace.version"=$WORKSPACE_VERSION \
     "workspace.flavor"=$WORKSPACE_FLAVOR \
-    "workspace.baseimage"=dagshub/ml-workspace:$WORKSPACE_VERSION \
+    "workspace.baseimage"=jmcodelib/ml-workspace:$WORKSPACE_VERSION \
     "org.opencontainers.image.version"=$WORKSPACE_VERSION \
     "org.opencontainers.image.revision"=$ARG_VCS_REF \
     "org.opencontainers.image.created"=$ARG_BUILD_DATE \ 
