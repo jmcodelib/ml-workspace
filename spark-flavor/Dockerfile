@@ -19,7 +19,7 @@ RUN \
 
 # Install Spark
 ENV \
-    SPARK_VERSION="2.4.4" \
+    SPARK_VERSION="3.0.1" \
     HADOOP_VERSION="2.7"
 
 RUN \
